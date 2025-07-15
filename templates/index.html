@@ -1,35 +1,121 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de QR Code</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerador de QR Code</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body{
-            background-color: black;
-            color: white;
-        }
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        input[type="text"] { padding: 10px; width: 300px; }
-        input[type="submit"] { padding: 10px 20px; cursor: pointer; }
-        img { margin-top: 20px; }
-    </style>
+    body {
+      background-color: #0f0f0f;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 2rem;
+      color: #00ffcc;
+      text-shadow: 0 0 8px #00ffcc66;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+      max-width: 400px;
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #2a2a2a;
+      color: #fff;
+    }
+
+    input[type="submit"] {
+      padding: 12px 20px;
+      background-color: #00ffcc;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #00e6b8;
+    }
+
+    .qr-container {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .qr-container h2 {
+      margin-bottom: 10px;
+    }
+
+    .qr-container img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 10px;
+      border: 4px solid #00ffcc;
+      border-radius: 10px;
+    }
+
+    .qr-container a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #00ffcc;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .qr-container a:hover {
+      color: #00e6b8;
+    }
+  </style>
 </head>
 <body>
-    <h1>Gerador de QR Code</h1>
 
-    <form method="POST">
-        <input type="text" name="data" placeholder="Digite uma URL ou texto" required>
-        <input type="submit" value="Gerar QR Code">
-    </form>
+  <h1>Gerador de QR Code</h1>
 
-    {% if qr_code_path %}
-        <h2>QR Code gerado:</h2>
-        <img src="{{ url_for('send_qr_code', filename='qr_code.png') }}" alt="QR Code">
-        <br>
-        <a href="{{ url_for('send_qr_code', filename='qr_code.png') }}" download>Baixar QR Code</a>
-    {% endif %}
+  <form method="POST">
+    <input type="text" name="data" placeholder="Digite uma URL ou texto" required />
+    <input type="submit" value="Gerar QR Code" />
+  </form>
+
+  {% if qr_code_path %}
+    <div class="qr-container">
+      <h2>QR Code gerado:</h2>
+      <img src="{{ url_for('send_qr_code', filename='qr_code.png') }}" alt="QR Code" />
+      <br />
+      <a href="{{ url_for('send_qr_code', filename='qr_code.png') }}" download>⬇ Baixar QR Code</a>
+    </div>
+  {% endif %}
+
 </body>
 </html>
